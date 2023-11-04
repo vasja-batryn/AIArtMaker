@@ -1,0 +1,37 @@
+//
+//  RoundedCorner.swift
+//  AIArtMagicMaker
+//
+//  Created by Yurii Marhitych on 10.07.2023.
+//
+
+import SwiftUI
+
+private struct RoundedCorner: Shape {
+    
+    // MARK: - Public Properties
+    let radius: CGFloat
+    let corners: UIRectCorner
+    
+    // MARK: - Path
+    func path(in rect: CGRect) -> Path {
+        let path = UIBezierPath(
+            roundedRect: rect,
+            byRoundingCorners: corners,
+            cornerRadii: CGSize(width: radius, height: radius)
+        )
+        
+        return Path(path.cgPath)
+    }
+}
+
+// MARK: - View+RoundedCorner
+extension View {
+    
+    func roundedCorner(
+        _ radius: CGFloat,
+        corners: UIRectCorner = .allCorners
+    ) -> some View {
+        clipShape(RoundedCorner(radius: radius, corners: corners))
+    }
+}
